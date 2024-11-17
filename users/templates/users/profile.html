@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Профиль пользователя</h2>
+    
+    <!-- Информация о пользователе -->
+    <div class="user-info mb-4">
+        <h4>Имя: {{ user.username }}</h4>
+        <h4>Email: {{ user.email }}</h4>
+    </div>
+
+    <!-- Сброс пароля -->
+    <div class="reset-password mb-5">
+        <a href="{% url 'password_reset' %}" class="btn btn-warning">Сбросить пароль</a>
+    </div>
+
+    <!-- Список покупок курсов -->
+    <div class="user-courses">
+        <h3>Мои покупки</h3>
+        {% if purchases %}
+            <ul class="list-group">
+                {% for purchase in purchases %}
+                    <li class="list-group-item">
+                        <strong>Курс:</strong> {{ purchase.course.name }} <br>
+                        <strong>Дата покупки:</strong> {{ purchase.date_purchased }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>У вас пока нет покупок курсов.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

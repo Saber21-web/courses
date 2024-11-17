@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <h1>Купить курс: {{ course.title }}</h1>
+    <p>{{ course.description }}</p>
+    <p>Цена: {{ course.price }}$</p>
+
+    <form action="{% url 'courses:payment_page' course.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-success">Перейти к оплате</button>
+    </form>
+{% endblock %}

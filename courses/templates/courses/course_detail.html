@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-center text-primary">Детали курса</h1>
+    
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="mb-3">
+                <h5 class="font-weight-bold text-muted">Название:</h5>
+                <p class="form-control-plaintext">{{ form.name.value }}</p>
+            </div>
+            <div class="mb-3">
+                <h5 class="font-weight-bold text-muted">Описание:</h5>
+                <p class="form-control-plaintext">{{ form.description.value }}</p>
+            </div>
+            <div class="mb-3">
+                <h5 class="font-weight-bold text-muted">Видео:</h5>
+                {% if form.video.value %}
+                    <video class="w-100" height="auto" controls>
+                        <source src="{{ form.video.value.url }}" type="video/mp4">
+                        <source src="{{ form.video.value.url }}" type="video/webm">
+                        <source src="{{ form.video.value.url }}" type="video/ogg">
+                        <source src="{{ form.image.value.url }}">
+                        Ваш браузер не поддерживает воспроизведение видео.
+                    </video>
+                {% else %}
+                    <p class="form-control-plaintext text-danger">Видео не загружено.</p>
+                {% endif %}
+            </div>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'courses:course_buy' course.id %}" class="btn btn-primary">Купить курс</a>
+                {% else %}
+                    <a href="{% url 'users:login' %}?next={% url 'courses:course_buy' course.id %}" class="btn btn-primary">Войдите, чтобы купить курс</a>
+                {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

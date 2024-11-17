@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Оплата была отменена</h1>
+    <p>Вы отменили процесс покупки курса <strong>{{ course.title }}</strong>.</p>
+    <p>Вы можете вернуться на страницу курса и попробовать снова.</p>
+    
+    <a href="{% url 'courses:course_detail' course.id %}" class="btn btn-primary">Перейти к курсу</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Оплата курса</h1>
+    
+    <!-- Информация о курсе -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">{{ course.name }}</h5>
+            <p class="card-text">Описание: {{ course.description }}</p>
+            <p class="card-text"><strong>Цена: ${{ course.price }}</strong></p>
+        </div>
+    </div>
+
+    <!-- Выбор способа оплаты -->
+    <h4>Выберите способ оплаты:</h4>
+    <div class="d-flex gap-3">
+        <!-- Stripe -->
+        <form method="get" action="{% url 'stripe_checkout' course.id %}">
+            <button type="submit" class="btn btn-primary">Оплатить через Stripe</button>
+        </form>
+
+        <!-- PayPal -->
+        <form method="post" action="{% url 'paypal_checkout' course.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-secondary">Оплатить через PayPal</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
